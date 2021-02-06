@@ -114,6 +114,11 @@ def build_xml_component_element(publisher, name, version, description, hashes, l
             if component_license.license is not None:
                 license_elm = ElementTree.SubElement(licenses_elm, "license")
                 ElementTree.SubElement(license_elm, "name").text = re.sub(RE_XML_ILLEGAL, "?", component_license.license.name)
+                ElementTree.SubElement(license_elm, "id").text = re.sub(
+                    RE_XML_ILLEGAL, "?", 
+                    component_license.license.id if
+                       component_license.license.id else
+                       component_license.license.name)
 
     if purl:
         ElementTree.SubElement(component, "purl").text = purl
